@@ -8,6 +8,10 @@ import 'note_model.dart';
 extension NoteExtensions on Note {
   get title => text.split("\n").first;
   get dateString => DateFormat.yMd().format(createdAt);
+  get summary {
+    final lines = text.split("\n");
+    return lines.length <= 1 ? text : lines.sublist(1).join(" ");
+  }
 }
 
 class NoteCell extends StatelessWidget {
@@ -35,6 +39,8 @@ class NoteCell extends StatelessWidget {
                         Text(
                           note.title,
                           style: Theme.of(context).textTheme.headline6,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         Row(
                           children: [
@@ -42,12 +48,17 @@ class NoteCell extends StatelessWidget {
                               note.dateString,
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                note.text,
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    note.summary,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  )),
                             ),
                           ],
                         )

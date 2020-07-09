@@ -12,7 +12,7 @@ class Note {
 }
 
 class NoteModel extends ChangeNotifier {
-  final List<Note> _notes = [Note(0, "hi")];
+  final List<Note> _notes = [];
 
   UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
 
@@ -22,8 +22,8 @@ class NoteModel extends ChangeNotifier {
   }
 
   Note create() {
-    final maxId = notes.map((e) => e.id).reduce(max);
-    final note = Note(maxId + 1, "");
+    final uid = DateTime.now().millisecondsSinceEpoch;
+    final note = Note(uid, "");
     add(note);
     return note;
   }

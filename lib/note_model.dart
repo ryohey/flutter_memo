@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,13 @@ class NoteModel extends ChangeNotifier {
   void add(Note note) {
     _notes.add(note);
     notifyListeners();
+  }
+
+  Note create() {
+    final maxId = notes.map((e) => e.id).reduce(max);
+    final note = Note(maxId + 1, "");
+    add(note);
+    return note;
   }
 
   void remove(int id) {

@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/note_list_route.dart';
+import 'package:provider/provider.dart';
+
+import 'note_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+      ChangeNotifierProvider(create: (context) => NoteModel(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

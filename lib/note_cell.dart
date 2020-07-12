@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'note_bloc.dart';
 import 'note_detail_route.dart';
 import 'note_model.dart';
 
@@ -73,7 +74,7 @@ class NoteCell extends StatelessWidget {
     return Dismissible(
         key: Key(note.id.toString()),
         onDismissed: (direction) {
-          Provider.of<NoteModel>(context, listen: false).remove(note.id);
+          Provider.of<NoteBloc>(context, listen: false).removeNote.add(note.id);
         },
         background: Container(
           color: Colors.red,

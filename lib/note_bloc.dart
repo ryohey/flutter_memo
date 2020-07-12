@@ -1,38 +1,34 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/note_model.dart';
-import 'package:rxdart/subjects.dart';
 
-class NoteBloc {
-  final _notes = BehaviorSubject<List<Note>>.seeded([]);
-  final _addNoteController = PublishSubject<Note>();
-  final _updateNoteController = PublishSubject<Note>();
-  final _removeNoteController = PublishSubject<int>();
+abstract class NoteEvent {}
 
-  NoteBloc() {
-    _addNoteController.stream.listen((event) {
-      _notes.add(_notes.value + [event]);
-    });
+class AddNote extends NoteEvent {
+  final Note note;
+  AddNote(this.note);
+}
 
-    _updateNoteController.stream.listen((event) {
-      final newNotes =
-          _notes.value.map((e) => e.id == event.id ? event : e).toList();
-      _notes.add(newNotes);
-    });
+class UpdateNote extends NoteEvent {
+  final Note note;
+  UpdateNote(this.note);
+}
 
-    _removeNoteController.stream.listen((id) {
-      final newNotes = _notes.value.where((note) => note.id != id).toList();
-      _notes.add(newNotes);
-    });
+class RemoveNote extends NoteEvent {
+  final int id;
+  RemoveNote(this.id);
+}
+
+class NoteBloc extends Bloc<NoteEvent, List<Note>> {
+  NoteBloc() : super([]);
+
+  @override
+  Stream<List<Note>> mapEventToState(NoteEvent event) async* {
+    if (event is AddNote) {
+      yield state + [event.note];
+    } else if (event is UpdateNote) {
+      yield state.map((e) => e.id == event.note.id ? event : e).toList();
+    } else if (event is RemoveNote) {
+      yield state.where((note) => note.id != event.id).toList();
+    }
   }
-
-  void dispose() {
-    _notes.close();
-    _addNoteController.close();
-    _updateNoteController.close();
-    _removeNoteController.close();
-  }
-
-  Sink<Note> get addNote => _addNoteController.sink;
-  Sink<Note> get updateNote => _updateNoteController.sink;
-  Sink<int> get removeNote => _removeNoteController.sink;
-  Stream<List<Note>> get notes => _notes.stream;
 }

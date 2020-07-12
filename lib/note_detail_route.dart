@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'note_bloc.dart';
 import 'note_model.dart';
@@ -32,8 +32,7 @@ class _NoteDetailRouteState extends State<NoteDetailRoute> {
             maxLines: 99999,
             autofocus: true,
             onChanged: (value) {
-              final noteBloc = Provider.of<NoteBloc>(context, listen: false);
-              noteBloc.updateNote.add(Note(note.id, value));
+              context.bloc<NoteBloc>().add(UpdateNote(Note(note.id, value)));
             },
           ),
         ));

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/note_model.dart';
-import 'package:provider/provider.dart';
 
 import 'note_bloc.dart';
 import 'note_cell.dart';
@@ -10,13 +10,10 @@ import 'note_detail_route.dart';
 class NoteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final noteBloc = Provider.of<NoteBloc>(context, listen: false);
-    return StreamBuilder<List<Note>>(
-        stream: noteBloc.notes,
-        builder: (context, notes) {
-          final cells = (notes?.data ?? []).map((e) => NoteCell(e)).toList();
-          return ListView(children: cells);
-        });
+    return BlocBuilder<NoteBloc, List<Note>>(builder: (context, notes) {
+      final cells = notes.map((e) => NoteCell(e)).toList();
+      return ListView(children: cells);
+    });
   }
 }
 
@@ -25,9 +22,8 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: () {
-        final noteBloc = Provider.of<NoteBloc>(context, listen: false);
         final note = Note.create();
-        noteBloc.addNote.add(note);
+        context.bloc<NoteBloc>().add(AddNote(note));
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NoteDetailRoute(note)),

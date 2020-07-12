@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import 'note_bloc.dart';
 import 'note_detail_route.dart';
@@ -74,7 +74,8 @@ class NoteCell extends StatelessWidget {
     return Dismissible(
         key: Key(note.id.toString()),
         onDismissed: (direction) {
-          Provider.of<NoteBloc>(context, listen: false).removeNote.add(note.id);
+          final e = RemoveNote(note.id);
+          context.bloc<NoteBloc>().add(e);
         },
         background: Container(
           color: Colors.red,

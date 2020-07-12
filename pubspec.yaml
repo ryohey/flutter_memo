@@ -32,6 +32,7 @@ dependencies:
   provider: ^4.3.0
   intl: ^0.16.1
   rxdart: ^0.24.1
+  flutter_bloc: ^5.0.1
 
 dev_dependencies:
   flutter_test:

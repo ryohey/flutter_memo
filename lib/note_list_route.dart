@@ -9,28 +9,26 @@ import 'note_detail_route.dart';
 class NoteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<NoteModel>(builder: (context, noteModel, child) {
-      final cells = noteModel.notes.map((e) => NoteCell(e)).toList();
-      return ListView(children: cells);
-    });
+    final cells =
+        context.watch<NoteState>().notes.map((e) => NoteCell(e)).toList();
+    return ListView(children: cells);
   }
 }
 
 class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<NoteModel>(
-        builder: (context, noteModel, child) => CupertinoButton(
-              onPressed: () {
-                final note = noteModel.create();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NoteDetailRoute(note)),
-                );
-              },
-              child: Text("Add"),
-            ));
+    return CupertinoButton(
+      onPressed: () {
+        final noteModel = context.read<NoteModel>();
+        final note = noteModel.create();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NoteDetailRoute(note)),
+        );
+      },
+      child: Text("Add"),
+    );
   }
 }
 

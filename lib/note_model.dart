@@ -1,6 +1,4 @@
-import 'dart:collection';
-
-import 'package:flutter/material.dart';
+import 'package:state_notifier/state_notifier.dart';
 
 class Note {
   final int id;
@@ -10,14 +8,16 @@ class Note {
   Note(this.id, this.text);
 }
 
-class NoteModel extends ChangeNotifier {
-  final List<Note> _notes = [];
+class NoteState {
+  List<Note> notes;
+  NoteState(this.notes);
+}
 
-  UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
+class NoteModel extends StateNotifier<NoteState> {
+  NoteModel() : super(NoteState([]));
 
   void add(Note note) {
-    _notes.add(note);
-    notifyListeners();
+    state = NoteState(state.notes + [note]);
   }
 
   Note create() {
@@ -28,7 +28,7 @@ class NoteModel extends ChangeNotifier {
   }
 
   void remove(int id) {
-    _notes.removeWhere((note) => note.id == id);
+    state = NoteState(state.notes.where((n) => n.id != id).toList());
   }
 
   void update(int id, String text) {

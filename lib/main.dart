@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:myapp/note_list_route.dart';
-import 'package:provider/provider.dart';
 
 import 'note_model.dart';
 
 void main() {
-  runApp(
-      ChangeNotifierProvider(create: (context) => NoteModel(), child: MyApp()));
+  runApp(StateNotifierProvider<NoteModel, NoteState>(
+      create: (context) => NoteModel(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

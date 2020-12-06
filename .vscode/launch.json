@@ -27,6 +27,14 @@
             "args": [
                "--dart-define=APP_ARCH=bloc"
             ]
+        },
+        {
+            "name": "flutter_bloc",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+               "--dart-define=APP_ARCH=flutter_bloc"
+            ]
         }
     ]
 }

@@ -27,7 +27,7 @@ class NoteBloc extends Bloc<NoteEvent, List<Note>> {
     if (event is AddNote) {
       yield state + [event.note];
     } else if (event is UpdateNote) {
-      yield state.map((e) => e.id == event.note.id ? event : e).toList();
+      yield state.map((e) => e.id == event.note.id ? event.note : e).toList();
     } else if (event is RemoveNote) {
       yield state.where((note) => note.id != event.id).toList();
     }

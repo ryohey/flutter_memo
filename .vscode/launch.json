@@ -5,9 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter",
+            "name": "state_notifier",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+               "--dart-define=APP_ARCH=state_notifier"
+            ]
         }
     ]
 }

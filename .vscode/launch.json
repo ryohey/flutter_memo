@@ -11,6 +11,14 @@
             "args": [
                "--dart-define=APP_ARCH=state_notifier"
             ]
+        },
+        {
+            "name": "change_notifier",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+               "--dart-define=APP_ARCH=change_notifier"
+            ]
         }
     ]
 }

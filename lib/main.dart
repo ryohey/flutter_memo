@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'change_notifier/my_app.dart';
+import 'state_notifier/my_app.dart' as StateNotifierApp;
+import 'change_notifier/my_app.dart' as ChangeNotifierApp;
 
 const architecture =
     String.fromEnvironment('APP_ARCH', defaultValue: 'change_notifier');
@@ -12,8 +12,10 @@ void main() {
 
 Widget app() {
   switch (architecture) {
+    case "state_notifier":
+      return StateNotifierApp.MyApp();
     case "change_notifier":
     default:
-      return MyApp();
+      return ChangeNotifierApp.MyApp();
   }
 }

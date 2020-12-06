@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/shared/note.dart';
 import 'package:provider/provider.dart';
 
 import 'note_model.dart';

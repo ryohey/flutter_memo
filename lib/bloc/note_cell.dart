@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'note_bloc.dart';
 import 'note_detail_route.dart';
-import 'note_model.dart';
+import '../shared/note.dart';
 
 extension NoteExtensions on Note {
   get title => text.split("\n").first;

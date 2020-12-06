@@ -1,14 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-
-class Note {
-  final int id;
-  final String text;
-  final DateTime createdAt = DateTime.now();
-
-  Note(this.id, this.text);
-}
+import 'package:myapp/shared/note.dart';
 
 class NoteModel extends ChangeNotifier {
   final List<Note> _notes = [];

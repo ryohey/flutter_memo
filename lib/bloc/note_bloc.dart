@@ -1,6 +1,6 @@
 import 'package:rxdart/subjects.dart';
 
-import 'note_model.dart';
+import '../shared/note.dart';
 
 class NoteBloc {
   final _notes = BehaviorSubject<List<Note>>.seeded([]);

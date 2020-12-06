@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'note_bloc.dart';
 import 'note_cell.dart';
 import 'note_detail_route.dart';
-import 'note_model.dart';
+import '../shared/note.dart';
 
 class NoteList extends StatelessWidget {
   @override

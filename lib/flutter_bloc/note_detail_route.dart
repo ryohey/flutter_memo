@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myapp/shared/note.dart';
 
 import 'note_bloc.dart';
-import 'note_model.dart';
 
 class NoteDetailRoute extends StatefulWidget {
   final Note note;

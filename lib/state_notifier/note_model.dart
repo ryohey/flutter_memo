@@ -1,12 +1,5 @@
 import 'package:state_notifier/state_notifier.dart';
-
-class Note {
-  final int id;
-  final String text;
-  final DateTime createdAt = DateTime.now();
-
-  Note(this.id, this.text);
-}
+import 'package:myapp/shared/note.dart';
 
 class NoteState {
   List<Note> notes;

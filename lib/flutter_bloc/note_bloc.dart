@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'note_model.dart';
+import 'package:myapp/shared/note.dart';
 
 abstract class NoteEvent {}
 

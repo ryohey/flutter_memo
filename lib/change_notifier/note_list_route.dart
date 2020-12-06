@@ -45,10 +45,30 @@ class BottomToolbar extends StatelessWidget {
   }
 }
 
-class NoteListRoute extends StatelessWidget {
+class NoteListRoute extends StatefulWidget {
+  @override
+  NoteListRouteState createState() => NoteListRouteState();
+}
+
+class NoteListRouteState extends State<NoteListRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _syncNotes();
+  }
+
+  void _syncNotes() async {
+    await Provider.of<NoteModel>(context, listen: false).fetchNotes();
+    _scaffoldKey.currentState
+        .showSnackBar(SnackBar(content: Text("Synchronization is complete")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: CupertinoNavigationBar(
         middle: Text("メモ"),
       ),

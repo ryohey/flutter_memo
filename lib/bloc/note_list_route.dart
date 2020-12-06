@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,10 +51,39 @@ class BottomToolbar extends StatelessWidget {
   }
 }
 
-class NoteListRoute extends StatelessWidget {
+class NoteListRoute extends StatefulWidget {
+  @override
+  NoteListRouteState createState() => NoteListRouteState();
+}
+
+class NoteListRouteState extends State<NoteListRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  StreamSubscription<SyncState> _subscription;
+
+  @override
+  void didChangeDependencies() {
+    final noteBloc = Provider.of<NoteBloc>(context, listen: false);
+    _subscription?.cancel();
+    _subscription = noteBloc.syncState.distinct().listen((event) {
+      if (event == SyncState.completed) {
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text("Synchronization is complete")));
+      }
+    });
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: CupertinoNavigationBar(
         middle: Text("メモ"),
       ),

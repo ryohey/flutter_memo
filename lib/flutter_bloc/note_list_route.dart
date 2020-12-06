@@ -10,8 +10,8 @@ import 'note_detail_route.dart';
 class NoteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NoteBloc, List<Note>>(builder: (context, notes) {
-      final cells = notes.map((e) => NoteCell(e)).toList();
+    return BlocBuilder<NoteBloc, NoteState>(builder: (context, state) {
+      final cells = state.notes.map((e) => NoteCell(e)).toList();
       return ListView(children: cells);
     });
   }
@@ -52,7 +52,17 @@ class NoteListRoute extends StatelessWidget {
       appBar: CupertinoNavigationBar(
         middle: Text("メモ"),
       ),
-      body: Column(children: [Expanded(child: NoteList()), BottomToolbar()]),
+      body: BlocListener<NoteBloc, NoteState>(
+          listenWhen: (previous, current) =>
+              previous.syncState != current.syncState,
+          listener: (context, state) {
+            if (state.syncState == SyncState.completed) {
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text("Synchronization is complete")));
+            }
+          },
+          child:
+              Column(children: [Expanded(child: NoteList()), BottomToolbar()])),
     );
   }
 }

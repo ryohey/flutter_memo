@@ -75,7 +75,7 @@ class NoteCell extends StatelessWidget {
         key: Key(note.id.toString()),
         onDismissed: (direction) {
           final e = RemoveNote(note.id);
-          context.bloc<NoteBloc>().add(e);
+          context.read<NoteBloc>().add(e);
         },
         background: Container(
           color: Colors.red,

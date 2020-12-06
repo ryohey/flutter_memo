@@ -32,7 +32,7 @@ class _NoteDetailRouteState extends State<NoteDetailRoute> {
             maxLines: 99999,
             autofocus: true,
             onChanged: (value) {
-              context.bloc<NoteBloc>().add(UpdateNote(Note(note.id, value)));
+              context.read<NoteBloc>().add(UpdateNote(Note(note.id, value)));
             },
           ),
         ));

@@ -23,7 +23,7 @@ class AddButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: () {
         final note = Note.create();
-        context.bloc<NoteBloc>().add(AddNote(note));
+        context.read<NoteBloc>().add(AddNote(note));
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NoteDetailRoute(note)),

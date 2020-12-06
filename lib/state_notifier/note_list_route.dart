@@ -61,7 +61,7 @@ class NoteListRouteState extends State<NoteListRoute> {
     final noteModel = context.read<NoteModel>();
     _subscription?.cancel();
     _subscription = noteModel.stream
-        .distinct((prev, current) => prev.syncState != current.syncState)
+        .distinct((prev, current) => prev.syncState == current.syncState)
         .listen((state) {
       if (state.syncState == SyncState.completed) {
         _scaffoldKey.currentState.showSnackBar(

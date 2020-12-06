@@ -19,6 +19,14 @@
             "args": [
                "--dart-define=APP_ARCH=change_notifier"
             ]
+        },
+        {
+            "name": "bloc",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+               "--dart-define=APP_ARCH=bloc"
+            ]
         }
     ]
 }
